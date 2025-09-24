@@ -3,9 +3,6 @@
 import { StepOne } from "../_components/stepone";
 import { StepTwo } from "../_components/steptwo";
 import { StepThree } from "../_components/stepthree";
-import { Button } from "../_components/Button";
-import { Input } from "../_components/Input";
-
 import { useState } from "react";
 
 export default function Page() {
@@ -20,7 +17,7 @@ export default function Page() {
   };
   return (
     <div className="flex justify-center items-center">
-      <CurrentStep />
+      <CurrentStep buttonNext={buttonNext} buttonBack={buttonBack} />
     </div>
   );
 }
