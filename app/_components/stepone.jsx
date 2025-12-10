@@ -1,6 +1,7 @@
 import { Input } from "../_components/Input";
 import { Button } from "../_components/Button";
-export function StepOne({ buttonNext }) {
+export function StepOne(props) {
+  const { buttonNext, required, name, errors } = props;
   return (
     <div className="flex flex-col py-[32px] justify-between items-center w-[480px] rounded-[6px] h-[655px] bg-white border-2">
       <div>
@@ -10,18 +11,25 @@ export function StepOne({ buttonNext }) {
           <p>Please provide all current information accurately.</p>
         </div>
         <div>
-          <Input
+          <Input 
             label={"First name"}
+            name={"firstName"}
+            {...(required ? { required: true } : {})}
             id={"First name"}
             placeHolder={"Your first name"}
           />
+          {errors && <p>{errors}</p>}
           <Input
             label={"Last Name"}
+            name="firstName"
+            {...(required ? { required: true } : {})}
             id={"Last Name"}
-            placeHolder={"Your last name"}
+            placeHolder={"Your last name"}        
           />
           <Input
             label={"Username"}
+            name="firstName"
+            required
             id={"Username"}
             placeHolder={"Your username"}
           />
