@@ -13,17 +13,17 @@ export function StepOne({ buttonNext }) {
           <Input
             label={"First name"}
             id={"First name"}
-            placeHolder={" Your first name"}
+            placeHolder={"Your first name"}
           />
           <Input
             label={"Last Name"}
             id={"Last Name"}
-            placeHolder={" Your last name"}
+            placeHolder={"Your last name"}
           />
           <Input
             label={"Username"}
             id={"Username"}
-            placeHolder={" Your username"}
+            placeHolder={"Your username"}
           />
         </div>
       </div>

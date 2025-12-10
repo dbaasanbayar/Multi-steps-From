@@ -10,21 +10,21 @@ export function StepTwo({ buttonBack, buttonNext, text, isContinue }) {
           <p>Please provide all current information accurately.</p>
         </div>
         <div>
-          <Input label={"Email"} id={"Email"} placeHolder={" Your email"} />
+          <Input label={"Email"} id={"Email"} placeHolder={"Your email"} />
           <Input
             label={"Phone number"}
             id={"Phone number"}
-            placeHolder={" Your Phone number"}
+            placeHolder={"Your phone number"}
           />
           <Input
             label={"Password"}
             id={"Password"}
-            placeHolder={" Your Password"}
+            placeHolder={"Your Password"}
           />
           <Input
             label={"Confirm password"}
             id={"Confirm password"}
-            placeHolder={" Confirm password"}
+            placeHolder={"Confirm password"}
           />
         </div>
       </div>

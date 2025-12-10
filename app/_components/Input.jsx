@@ -19,7 +19,7 @@ export const Input = ({ id, label, placeHolder, isDate, error }) => {
       <input
         type={isDate ? "date" : "text"}
         placeholder={placeHolder}
-        className={` focus:border-green-500 border-2 w-[348px] h-[40px]`}
+        className={` focus:border-green-500 border-2 w-[348px] px-2 h-[40px]`}
         id={id}
       />
     </div>

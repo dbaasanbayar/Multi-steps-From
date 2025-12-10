@@ -13,7 +13,7 @@ export function StepThree({ buttonNext, buttonBack }) {
           <Input
             label={"Date"}
             id={"Date"}
-            placeHolder={" Он сар өдөр"}
+            placeHolder={"Он сар өдөр"}
             isDate={true}
             error={"some error"}
           />
