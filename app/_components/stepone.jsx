@@ -1,40 +1,46 @@
 import { Input } from "../_components/Input";
 import { Button } from "../_components/Button";
-export function StepOne(props) {
-  const { buttonNext, required, name, errors } = props;
+export function StepOne({buttonNext}) {
+  // const showAsterisk = !value;
   return (
     <div className="flex flex-col py-[32px] justify-between items-center w-[480px] rounded-[6px] h-[655px] bg-white border-2">
-      <div>
+        <div>
         <div>
           <img src="/logo.png" width={60} height={60} />
           <h1>Join Us! 😎</h1>
           <p>Please provide all current information accurately.</p>
         </div>
-        <div>
-          <Input 
-            label={"First name"}
-            name={"firstName"}
-            {...(required ? { required: true } : {})}
-            id={"First name"}
-            placeHolder={"Your first name"}
-          />
-          {errors && <p>{errors}</p>}
-          <Input
-            label={"Last Name"}
-            name="firstName"
-            {...(required ? { required: true } : {})}
-            id={"Last Name"}
-            placeHolder={"Your last name"}        
-          />
-          <Input
-            label={"Username"}
-            name="firstName"
-            required
-            id={"Username"}
-            placeHolder={"Your username"}
-          />
+        <div className="flex gap-2 flex-col">
+          <div className="flex flex-col">
+            <label htmlFor="firstname">
+              {/* {showAsterisk && <span className="text-red-500 ml-1">*</span>} */}
+              First name
+            </label>
+            <input id="firstname"
+            className={` focus:border-green-500 border-3 rounded w-[348px] h-[40px]`} 
+            type="text" />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="lastname">
+              {/* {showAsterisk && <span className="text-red-500 ml-1">*</span>} */}
+              Last name
+            </label>
+            <input id="lastname"
+            className={` focus:border-green-500 border-3 rounded w-[348px] h-[40px]`} 
+            type="text" />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="username">
+              {/* {showAsterisk && <span className="text-red-500 ml-1">*</span>} */}
+              User name
+            </label>
+            <input id="username"
+            className={` focus:border-green-500 border-3 rounded w-[348px] h-[40px]`} 
+            type="text" />
+          </div>
+
         </div>
-      </div>
+        </div>
       <div>
         <Button
           buttonNext={buttonNext}

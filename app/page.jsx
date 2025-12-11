@@ -21,10 +21,7 @@ export default function Page() {
     if (event.target.name.value.lenght<5){
       setErrors("Too short name")
     }
-    
-    
   }
-
   const buttonNext = () => {
     if (currentIndex < 4) setCurrentIndex(currentIndex + 1);
   };
