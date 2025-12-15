@@ -1,10 +1,10 @@
 import { Input } from "../_components/Input";
 import { Button } from "../_components/Button";
-export function StepTwo({buttonNext, buttonBack}) {
+export function StepTwo({ buttonNext, buttonBack }) {
   // const showAsterisk = !value;
   return (
     <div className="flex flex-col py-[32px] justify-between items-center w-[480px] rounded-[6px] h-[655px] bg-white border-2">
-        <div>
+      <div>
         <div>
           <img src="/logo.png" width={60} height={60} />
           <h1>Join Us! 😎</h1>
@@ -16,45 +16,53 @@ export function StepTwo({buttonNext, buttonBack}) {
               {/* {showAsterisk && <span className="text-red-500 ml-1">*</span>} */}
               Email
             </label>
-            <input id="email"
-            className={` focus:border-green-500 border-3 rounded w-[348px] h-[40px]`} 
-            type="text" />
+            <input
+              id="email"
+              className={` focus:border-green-500 border-3 rounded w-[348px] h-[40px]`}
+              type="text"
+            />
           </div>
           <div className="flex flex-col">
             <label htmlFor="phonenumber">
               {/* {showAsterisk && <span className="text-red-500 ml-1">*</span>} */}
               Phone number
             </label>
-            <input id="phonenumber"
-            className={` focus:border-green-500 border-3 rounded w-[348px] h-[40px]`} 
-            type="text" />
+            <input
+              id="phonenumber"
+              className={` focus:border-green-500 border-3 rounded w-[348px] h-[40px]`}
+              type="text"
+            />
           </div>
           <div className="flex flex-col">
             <label htmlFor="password">
               {/* {showAsterisk && <span className="text-red-500 ml-1">*</span>} */}
               Password
             </label>
-            <input id="password"
-            className={` focus:border-green-500 border-3 rounded w-[348px] h-[40px]`} 
-            type="text" />
+            <input
+              id="password"
+              className={` focus:border-green-500 border-3 rounded w-[348px] h-[40px]`}
+              type="text"
+            />
           </div>
           <div className="flex flex-col">
             <label htmlFor="confirmpassword">
               {/* {showAsterisk && <span className="text-red-500 ml-1">*</span>} */}
               Confirm password
             </label>
-            <input id="confirmpassword"
-            className={` focus:border-green-500 border-3 rounded w-[348px] h-[40px]`} 
-            type="text" />
+            <input
+              id="confirmpassword"
+              className={` focus:border-green-500 border-3 rounded w-[348px] h-[40px]`}
+              type="text"
+            />
           </div>
         </div>
-        </div>
-        <div className="flex">
+      </div>
+      <div className="flex">
         <Button buttonBack={buttonBack} isContinue={false} text={"Back"} />
         <Button
           buttonNext={buttonNext}
           isContinue={true}
-          text={"Continue 3/3 >"}
+          text={"Continue 2/3 >"}
         />
       </div>
     </div>

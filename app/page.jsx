@@ -6,22 +6,25 @@ import { StepThree } from "./_components/stepthree";
 import { AllSet } from "./_components/stepallset";
 
 export default function Page() {
-  const [errors, setErrors] =[{
-    firstName: null,
-    lastName: null,
-    userName: null,
-  }]
+  // const [currentValue, setCurrentValue] = useState();
+  // const [changedValue, setChangedValue] = useState();
+  const [errors, setErrors] = [
+    {
+      firstName: null,
+      lastName: null,
+      userName: null,
+    },
+  ];
   const [currentIndex, setCurrentIndex] = useState(0);
   const CurrentStep = [StepOne, StepTwo, StepThree, AllSet][currentIndex];
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    buttonNext();
     console.log(event.target.firstName.value);
-    if (event.target.name.value.lenght<5){
-      setErrors("Too short name")
+    if (event.target.name.value.lenght < 5) {
+      setErrors("Too short name");
     }
-  }
+  };
   const buttonNext = () => {
     if (currentIndex < 4) setCurrentIndex(currentIndex + 1);
   };
@@ -30,9 +33,9 @@ export default function Page() {
   };
   return (
     <div className="flex justify-center h-screen items-center">
-      <form action="" onSubmit={buttonNext}>
-        <CurrentStep buttonNext={handleSubmit} buttonBack={buttonBack} />
-      </form> 
+      <form action="" onSubmit={handleSubmit}>
+        <CurrentStep buttonNext={buttonNext} buttonBack={buttonBack} />
+      </form>
     </div>
   );
 }
