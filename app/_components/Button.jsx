@@ -1,21 +1,20 @@
-export function Button({ isContinue, text, buttonNext, buttonBack }) {
+export function Button({ isContinue, type, text, buttonNext, buttonBack }) {
   if (isContinue) {
     return (
-      <div
+      <button
+        type={type}
         onClick={buttonNext}
-        className="bg-black w-[348px] rounded-[6px] flex justify-center items-center h-11 text-white"
-      >
+        className="bg-black w-[348px] cursor-pointer rounded-[6px] flex justify-center items-center h-11 text-white">
         {text}
         {isContinue}
-      </div>
+      </button>
     );
   }
   return (
-    <div
+    <button
       onClick={buttonBack}
-      className="w-[128px] h-11 border-2 rounded-[6px] flex justify-center items-center"
-    >
+      className="w-[128px] h-11 border-2 cursor-pointer rounded-[6px] flex justify-center items-center">
       {text}
-    </div>
+    </button>
   );
 }
