@@ -7,7 +7,7 @@ import { AllSet } from "./_components/stepallset";
 
 export default function Page() {
   const [errors, setErrors] = useState({});
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(2);
   const [formData, setFormData] = useState({
     firstname: "",
     lastname: "",
@@ -16,128 +16,91 @@ export default function Page() {
     phonenumber: "",
     password: "",
     confirmpassword: "",
-    dateofbirth: "",
+    dateOfBirth: "",
     profileimage: "",
   });
 
   const CurrentStep = [StepOne, StepTwo, StepThree, AllSet][currentIndex];
-
-  const validate = (data) => {
+  const validate = () => {
     const newErrors = {};
+    const data = formData;
 
     if (currentIndex === 0) {
-      const fname = data.firstname?.trim();
-      if (!fname) {
+      if (!data.firstname || !data.firstname.trim()) {
         newErrors.firstname = "First name is required.";
-      } else if (fname.length < 2 || fname.length > 50) {
-        newErrors.firstname = "First name must be 2-50 characters.";
-      } else if (!/^[a-zA-Z\s-]+$/.test(fname)) {
-        newErrors.firstname = "Only letters, spaces, or hyphens allowed.";
+      } else if (data.firstname.length < 2) {
+        newErrors.firstname = "First name must be at least 2 characters";
+      } else if (data.firstname.length > 50) {
+        newErrors.firstname = "First name must be less than 50 characters";
       }
-      // if (!data.firstname || !data.firstname.trim()) {
-      //   newErrors.firstname = "First name is required.";
-      // } else if (data.firstname.length < 2) {
-      //   newErrors.firstname = "First name must be at least 2 characters";
-      // } else if (data.firstname.length > 50) {
-      //   newErrors.firstname = "First name must be less than 50 characters";
-      // } else {
-      //   let valid = true;
-      //   for (let i = 0; i < data.firstname.length; i++) {
-      //     const char = data.firstname[i];
-      //     if (
-      //       !(
-      //         (char >= "A" && char <= "Z") ||
-      //         (char >= "a" && char <= "z") ||
-      //         char === " " ||
-      //         char === "-"
-      //       )
-      //     ) {
-      //       valid = false;
-      //       break;
-      //     }
-      //   }
-      //   if (!valid) {
-      //     newErrors.firstname =
-      //       "First name can only contain letters, spaces, or hyphens.";
-      //   }
-      // }
+
       if (!data.lastname || !data.lastname.trim()) {
         newErrors.lastname = "Last name is required.";
-      } else if (!data.lastname.length > 2) {
+      } else if (data.lastname.length < 2) {
         newErrors.lastname = "Last name must be at least 2 characters";
-      } else if (!data.lastname.length < 50) {
+      } else if (data.lastname.length > 50) {
         newErrors.lastname = "Last name must be less than 50 characters";
-      } else {
-        let valid = true;
-        for (let i = 0; i < data.lastname.length; i++) {
-          const char = data.lastname[i];
-          if (
-            !(
-              (char >= "A" && char <= "Z") ||
-              (char >= "a" && char <= "z") ||
-              char === " " ||
-              char === "-"
-            )
-          ) {
-            valid = false;
-            break;
-          }
-          if (!valid) {
-            newErrors.lastname =
-              "Last name can only contain letters, spaces, or hyphens.";
-          }
-        }
       }
+
       if (!data.username || !data.username.trim()) {
         newErrors.username = "Username is required.";
-      } else if (!data.username.length > 3 || !data.username.length < 50) {
+      } else if (data.username.length < 3 || data.username.length > 20) {
         newErrors.username = "Username must be 3–20 characters";
-      } else {
-        let valid = true;
-        for (let i = 0; i < data.username.length; i++) {
-          const char = data.username[i];
-          if (
-            !(
-              char >= "a" &&
-              char <= "z" &&
-              char >= "0" &&
-              char <= "9" &&
-              char !== "_"
-            )
-          ) {
-            valid = false;
-            break;
-          }
-        }
-        if (!valid) {
-          newErrors.username =
-            "Start with a letter, and contain only lowercase letters, numbers, or underscores.";
-        }
       }
     }
 
-    // if (currentIndex === 1) {
-    //   if (!data.email.trim()) {
-    //     newErrors.email = "Please provide a valid email address.";
-    //   }
-    //   if (!data.phonenumber.trim()) {
-    //     newErrors.phonenumber = "Please enter a valid phone number.";
-    //   }
-    //   if (!data.password.trim()) {
-    //     newErrors.password = "Password must include letters and numbers.";
-    //   }
-    //   if (!data.confirmpassword.trim()) {
-    //     newErrors.confirmpassword = "Passwords do not match. Please try again.";
-    //   }
-    // }
-    // if (currentIndex === 2) {
-    //   if (!data.dateofbirth.trim()) {
-    //     newErrors.dateofbirth = "Please select a date.";
-    //   }
-    //   if (!data.profileimage.trim()) {
-    //     newErrors.profileimage = "Image cannot be blank";
-    //   }
-    // }
+    if (currentIndex === 1) {
+      if (!data.email?.trim()) {
+        newErrors.email = "Email cannot be empty";
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+        newErrors.email = "Please provide a valid email address.";
+      }
+
+      if (!data.phonenumber || !data.phonenumber.trim()) {
+        newErrors.phonenumber = "Phone number is required";
+      } else if (!/^\+?[0-9]{8,15}$/.test(data.phonenumber)) {
+        newErrors.phonenumber = "Invalid phone number";
+      }
+
+      if (!data.password) {
+        newErrors.password = "Password is required";
+      } else if (data.password.length < 8) {
+        newErrors.password = "Password must be at least 8 characters.";
+      }
+
+      if (!data.confirmpassword) {
+        newErrors.confirmpassword = "Please confirm your password.";
+      } else if (data.confirmpassword !== data.password) {
+        newErrors.confirmpassword = "Passwords do not match.";
+      }
+    }
+
+    if (currentIndex === 2) {
+      if (!data.dateOfBirth || !data.dateOfBirth.trim()) {
+        newErrors.dateOfBirth = "Please select a date.";
+      } else {
+        const birthDate = new Date(data.dateOfBirth);
+        const today = new Date();
+
+        if (birthDate > today) {
+          newErrors.dateOfBirth = "Date cannot be in the future.";
+        } else {
+          let age = today.getFullYear() - birthDate.getFullYear();
+          const m = today.getMonth() - birthDate.getMonth();
+          if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+          }
+          if (age < 18) {
+            newErrors.dateOfBirth = "You must be at least 18 years old.";
+          }
+        }
+      }
+
+      if (!data.profileimage) {
+        newErrors.profileimage = "Image cannot be blank";
+      }
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -145,8 +108,10 @@ export default function Page() {
   const buttonNext = (event) => {
     event.preventDefault();
     const data = new FormData(event.target);
+
+    console.log("Data", data);
     if (!validate(data)) {
-      console.log("i'm back");
+      console.log("return");
       return;
     }
     setCurrentIndex((prev) => Math.min(prev + 1, 3));

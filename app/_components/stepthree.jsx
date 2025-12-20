@@ -22,13 +22,13 @@ export function StepThree({
               id="dateofbirth"
               className={` focus:border-green-500 border-3 rounded w-[348px] h-[40px]`}
               type="date"
-              value={setFormData.dateofbirth}
+              value={setFormData.dateOfBirth}
               onChange={(e) =>
-                setFormData({ ...formData, dateofbirth: e.target.value })
+                setFormData({ ...formData, dateOfBirth: e.target.value })
               }
             />
-            {errors.dateofbirth && (
-              <p className="text-red-500 text-[14px]">{errors.dateofbirth}</p>
+            {errors.dateOfBirth && (
+              <p className="text-red-500 text-[14px]">{errors.dateOfBirth}</p>
             )}
           </div>
           <div className="flex flex-col">
