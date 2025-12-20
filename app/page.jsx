@@ -107,10 +107,8 @@ export default function Page() {
 
   const buttonNext = (event) => {
     event.preventDefault();
-    const data = new FormData(event.target);
 
-    console.log("Data", data);
-    if (!validate(data)) {
+    if (!validate()) {
       console.log("return");
       return;
     }
