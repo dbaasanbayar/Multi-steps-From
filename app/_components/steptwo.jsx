@@ -8,18 +8,27 @@ export function StepTwo({
   errors,
 }) {
   return (
-    <div className="flex flex-col py-[32px] justify-between items-center w-[480px] rounded-[6px] h-[655px] bg-white border-2">
+    <div className="flex flex-col py-[32px] px-[48px] justify-between items-center w-[480px] rounded h-[655px] bg-white">
       <div>
         <Header />
-        <div className="flex gap-2 flex-col">
-          <div className="flex flex-col">
-            <label htmlFor="email">Email</label>
+        <div className="flex gap-1 mt-2 flex-col">
+          <div className="flex flex-col gap-1">
+            <label className="font-[600] text-[14px]" htmlFor="email">
+              Email
+              {!formData.email && (
+                <span className="text-red-500 ml-0.5">*</span>
+              )}
+            </label>
             <input
               id="email"
               name="email"
-              className={` focus:border-green-500 border-3 rounded w-[348px] h-[40px]`}
+              className={`border px-1 rounded w-[full] h-[40px] focus:outline-none ${
+                errors.email
+                  ? "border-red-400 focus:ring-red-400"
+                  : "focus:border-green-500"
+              } `}
               type="email"
-              value={setFormData.email}
+              value={formData.email}
               onChange={(e) =>
                 setFormData({ ...formData, email: e.target.value })
               }
@@ -28,17 +37,23 @@ export function StepTwo({
               <p className="text-red-500 text-[14px]">{errors.email}</p>
             )}
           </div>
-          <div className="flex flex-col">
-            <label htmlFor="phonenumber">
-              {/* {showAsterisk && <span className="text-red-500 ml-1">*</span>} */}
+          <div className="flex flex-col gap-1">
+            <label className="font-[600] text-[14px]" htmlFor="phonenumber">
               Phone number
+              {!formData.phonenumber && (
+                <span className="text-red-500 ml-0.5">*</span>
+              )}
             </label>
             <input
               name="phonenumber"
               id="phonenumber"
-              className={` focus:border-green-500 border-3 rounded w-[348px] h-[40px]`}
+              className={`border px-1 rounded w-[full] h-[40px] focus:outline-none ${
+                errors.phonenumber
+                  ? "border-red-400 focus:ring-red-400"
+                  : "focus:border-green-500"
+              } `}
               type="number"
-              value={setFormData.phonenumber}
+              value={formData.phonenumber}
               onChange={(e) =>
                 setFormData({ ...formData, phonenumber: e.target.value })
               }
@@ -47,17 +62,23 @@ export function StepTwo({
               <p className="text-red-500 text-[14px]">{errors.phonenumber}</p>
             )}
           </div>
-          <div className="flex flex-col">
-            <label htmlFor="password">
-              {/* {showAsterisk && <span className="text-red-500 ml-1">*</span>} */}
+          <div className="flex flex-col gap-1">
+            <label className="font-[600] text-[14px]" htmlFor="password">
               Password
+              {!formData.password && (
+                <span className="text-red-500 ml-0.5">*</span>
+              )}
             </label>
             <input
               name="password"
               id="password"
-              className={` focus:border-green-500 border-3 rounded w-[348px] h-[40px]`}
+              className={`border px-1 rounded w-[full] h-[40px] focus:outline-none ${
+                errors.password
+                  ? "border-red-400 focus:ring-red-400"
+                  : "focus:border-green-500"
+              } `}
               type="password"
-              value={setFormData.password}
+              value={formData.password}
               onChange={(e) =>
                 setFormData({ ...formData, password: e.target.value })
               }
@@ -66,17 +87,23 @@ export function StepTwo({
               <p className="text-red-500 text-[14px]">{errors.password}</p>
             )}
           </div>
-          <div className="flex flex-col">
-            <label htmlFor="confirmpassword">
-              {/* {showAsterisk && <span className="text-red-500 ml-1">*</span>} */}
+          <div className="flex flex-col gap-1">
+            <label className="font-[600] text-[14px]" htmlFor="confirmpassword">
               Confirm password
+              {!formData.confirmpassword && (
+                <span className="text-red-500 ml-0.5">*</span>
+              )}
             </label>
             <input
               name="confirmpassword"
               id="confirmpassword"
-              className={` focus:border-green-500 border-3 rounded w-[348px] h-[40px]`}
+              className={`border px-1 rounded w-[full] h-[40px] focus:outline-none ${
+                errors.confirmpassword
+                  ? "border-red-400 focus:ring-red-400"
+                  : "focus:border-green-500"
+              } `}
               type="password"
-              value={setFormData.confirmpassword}
+              value={formData.confirmpassword}
               onChange={(e) =>
                 setFormData({ ...formData, confirmpassword: e.target.value })
               }
@@ -89,8 +116,8 @@ export function StepTwo({
           </div>
         </div>
       </div>
-      <div className="flex">
-        <Button buttonBack={buttonBack} isContinue={false} text={"Back"} />
+      <div className="flex gap-4 w-full">
+        <Button buttonBack={buttonBack} isContinue={false} text={"< Back"} />
         <Button
           buttonNext={buttonNext}
           isContinue={true}

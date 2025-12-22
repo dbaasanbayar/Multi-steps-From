@@ -1,5 +1,8 @@
+"use client";
+import { useState, useEffect } from "react";
 import { Header } from "@/app/_components/header";
 import { Button } from "../_components/Button";
+import { Image } from "lucide-react";
 export function StepThree({
   buttonNext,
   buttonBack,
@@ -7,22 +10,64 @@ export function StepThree({
   formData,
   errors,
 }) {
+  const [preview, setPreview] = useState(null);
+  const [isDragging, setIsDragging] = useState(false);
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = () => {
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setIsDragging(false);
+
+    const file = e.dataTransfer.files[0];
+    if (file) handleFile(file);
+  };
+
+  const handleFile = (file) => {
+    setFormData((prev) => ({ ...prev, profileimage: file }));
+    setPreview(URL.createObjectURL(file));
+  };
+
+  const handleImageChange = (e) => {
+    setFormData({ ...formData, profileimage: e.target.files[0] });
+    setPreview(URL.createObjectURL(e.target.files[0]));
+  };
+
+  useEffect(() => {
+    return () => {
+      if (preview) URL.revokeObjectURL(preview);
+    };
+  }, [preview]);
+
   return (
-    <div className="flex flex-col py-[32px] justify-between items-center w-[480px] rounded-[6px] h-[655px] bg-white border-2">
+    <div className="flex flex-col py-[32px] px-[48px] justify-between items-center w-[480px] rounded h-[655px] bg-white">
       <div>
         <Header />
-        <div className="flex gap-2 flex-col">
-          <div className="flex flex-col">
-            <label htmlFor="dateofbirth">
-              {/* {showAsterisk && <span className="text-red-500 ml-1">*</span>} */}
+        <div className="flex gap-1 mt-2 flex-col">
+          <div className="flex flex-col gap-1">
+            <label className="font-[600] text-[14px]" htmlFor="dateofbirth">
               Date of birth
+              {!formData.dateOfBirth && (
+                <span className="text-red-500 ml-0.5">*</span>
+              )}
             </label>
             <input
               name="dateofbirth"
               id="dateofbirth"
-              className={` focus:border-green-500 border-3 rounded w-[348px] h-[40px]`}
+              className={`border px-1 rounded w-[full] h-[40px] focus:outline-none ${
+                errors.dateOfBirth
+                  ? "border-red-400 focus:ring-red-400"
+                  : "focus:border-green-500"
+              } `}
               type="date"
-              value={setFormData.dateOfBirth}
+              value={formData.dateOfBirth}
               onChange={(e) =>
                 setFormData({ ...formData, dateOfBirth: e.target.value })
               }
@@ -31,29 +76,61 @@ export function StepThree({
               <p className="text-red-500 text-[14px]">{errors.dateOfBirth}</p>
             )}
           </div>
-          <div className="flex flex-col">
-            <label htmlFor="profileimage">
-              {/* {showAsterisk && <span className="text-red-500 ml-1">*</span>} */}
+          <div className="flex flex-col gap-1">
+            <label
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              onDrop={handleDrop}
+              className="font-[600] text-[14px]"
+              htmlFor="profileimage">
               Profile image
+              {!formData.profileimage && (
+                <span className="text-red-500 ml-0.5">*</span>
+              )}
             </label>
-            <input
-              name="profileimage"
-              id="profileimage"
-              className={` focus:border-green-500 border-3 rounded w-[348px] h-[200px]`}
-              type="image"
-              value={setFormData.profileimage}
-              onChange={(e) =>
-                setFormData({ ...formData, profileimage: e.target.value })
-              }
-            />
+            <label
+              htmlFor="profileimage"
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              onDrop={handleDrop}
+              className={`flex flex-col justify-center items-center bg-gray-100 rounded w-full h-[200px] cursor-pointer border transition-all  ${
+                errors.profileimage
+                  ? "border-red-500"
+                  : "border-gray-300 focus:border-green-500"
+              } hover:bg-gray-300`}>
+              {preview ? (
+                <img
+                  src={preview}
+                  alt=""
+                  className="w-full h-full object-cover rounded"
+                />
+              ) : (
+                <div className="flex flex-col justify-center gap-2 items-center">
+                  <Image className="h-[28px] w-[28px]" />
+                  <span className="text-[#09090B] text-[14px] font-[500]">
+                    Drag or click to upload
+                  </span>
+                </div>
+              )}
+              <input
+                name="profileimage"
+                id="profileimage"
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleImageChange}
+              />
+            </label>
             {errors.profileimage && (
-              <p className="text-red-500 text-[14px]">{errors.profileimage}</p>
+              <p className="text-red-500 text-[14px] mt-1">
+                {errors.profileimage}
+              </p>
             )}
           </div>
         </div>
       </div>
-      <div className="flex">
-        <Button buttonBack={buttonBack} isContinue={false} text={"Back"} />
+      <div className="flex gap-4 justify-center w-full">
+        <Button buttonBack={buttonBack} isContinue={false} text={"< Back"} />
         <Button
           buttonNext={buttonNext}
           isContinue={true}
