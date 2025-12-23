@@ -6,6 +6,7 @@ export function StepTwo({
   setFormData,
   formData,
   errors,
+  handleChange,
 }) {
   return (
     <div className="flex flex-col py-[32px] px-[48px] justify-between items-center w-[480px] rounded h-[655px] bg-white">
@@ -29,9 +30,7 @@ export function StepTwo({
               } `}
               type="email"
               value={formData.email}
-              onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
-              }
+              onChange={handleChange}
             />
             {errors.email && (
               <p className="text-red-500 text-[14px]">{errors.email}</p>
@@ -54,9 +53,7 @@ export function StepTwo({
               } `}
               type="number"
               value={formData.phonenumber}
-              onChange={(e) =>
-                setFormData({ ...formData, phonenumber: e.target.value })
-              }
+              onChange={handleChange}
             />
             {errors.phonenumber && (
               <p className="text-red-500 text-[14px]">{errors.phonenumber}</p>
@@ -79,9 +76,7 @@ export function StepTwo({
               } `}
               type="password"
               value={formData.password}
-              onChange={(e) =>
-                setFormData({ ...formData, password: e.target.value })
-              }
+              onChange={handleChange}
             />
             {errors.password && (
               <p className="text-red-500 text-[14px]">{errors.password}</p>
@@ -104,9 +99,7 @@ export function StepTwo({
               } `}
               type="password"
               value={formData.confirmpassword}
-              onChange={(e) =>
-                setFormData({ ...formData, confirmpassword: e.target.value })
-              }
+              onChange={handleChange}
             />
             {errors.confirmpassword && (
               <p className="text-red-500 text-[14px]">

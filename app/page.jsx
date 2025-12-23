@@ -7,46 +7,39 @@ import { AllSet } from "./_components/stepallset";
 
 export default function Page() {
   const [errors, setErrors] = useState({});
-  const [currentIndex, setCurrentIndex] = useState(() => {
-    if (typeof window !== "undefined") {
-      const savedStep = localStorage.getItem("currentStep");
-      return savedStep ? parseInt(savedStep) : 0;
-    }
-    return 0;
+  const [formData, setFormData] = useState({
+    firstname: "",
+    lastname: "",
+    username: "",
+    email: "",
+    phonenumber: "",
+    password: "",
+    confirmpassword: "",
+    dateOfBirth: "",
+    profileimage: null,
   });
-  const [formData, setFormData] = useState(() => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("multiStepForm");
-      if (saved && saved !== "undefined") {
-        try {
-          return JSON.parse(saved);
-        } catch (error) {
-          console.error("LocalStorage was corrupted, resetting data.");
-          localStorage.removeItem("multiStepForm");
-        }
-      }
-    }
-
-    return {
-      firstname: "",
-      lastname: "",
-      username: "",
-      email: "",
-      phonenumber: "",
-      password: "",
-      confirmpassword: "",
-      dateOfBirth: "",
-      profileimage: null,
-    };
-  });
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem("multiStepForm", JSON.stringify(formData));
+    const saved = localStorage.getItem("formData");
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      setFormData(parsed);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("formData", JSON.stringify(formData));
   }, [formData]);
 
-  useEffect(() => {
-    localStorage.setItem("currentStep", currentIndex.toString());
-  }, [currentIndex]);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
   const CurrentStep = [StepOne, StepTwo, StepThree, AllSet][currentIndex];
   const validate = () => {
@@ -74,6 +67,13 @@ export default function Page() {
       } else if (!/^[A-Za-z\s-]+$/.test(data.lastname)) {
         newErrors.lastname =
           "Last name can only contain letters, spaces, or hyphens.";
+      } else if (
+        data.firstname &&
+        data.lastname &&
+        data.firstname.trim().toLowerCase() ===
+          data.lastname.trim().toLowerCase()
+      ) {
+        newErrors.lastname = "First name and last name cannot be the same.";
       }
 
       if (!data.username || !data.username.trim()) {
@@ -146,34 +146,49 @@ export default function Page() {
     event.preventDefault();
 
     if (!validate()) {
-      console.log("return");
       return;
     }
 
-    if (currentIndex === 0) {
-      localStorage.removeItem("multiStepForm");
-      localStorage.removeItem("currentStep");
-    }
-    setCurrentIndex((prev) => Math.min(prev + 1, 3));
-    console.log(currentIndex);
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setCurrentIndex((prev) => Math.min(prev + 1, 3));
+      setIsTransitioning(false);
+    }, 300);
   };
 
   function buttonBack() {
-    setCurrentIndex((prev) => Math.max(prev - 1, 0));
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setCurrentIndex((prev) => Math.max(prev - 1, 0));
+      setIsTransitioning(false);
+    }, 300);
   }
   return (
     <div
-      className={`flex justify-center h-screen ${
+      className={`flex justify-center h-screen transition-opacity duration-300 ${
         currentIndex === 3 ? "pt-[182px]" : "items-center"
-      }`}>
+      } ${isTransitioning ? "opacity-0" : "opacity-100"}`}>
       <form action="" onSubmit={buttonNext}>
         <CurrentStep
           formData={formData}
           setFormData={setFormData}
           errors={errors}
           buttonBack={buttonBack}
+          handleChange={handleChange}
         />
       </form>
     </div>
   );
 }
+
+// {
+//     firstname: "",
+//     lastname: "",
+//     username: "",
+//     email: "",
+//     phonenumber: "",
+//     password: "",
+//     confirmpassword: "",
+//     dateOfBirth: "",
+//     profileimage: null,
+//   } -> localStorage object hadgalj chadahguie -> "{firstName:""}"->

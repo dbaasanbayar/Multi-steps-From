@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { Button } from "../_components/Button";
 import { Header } from "@/app/_components/header";
-export function StepOne({ buttonNext, formData, setFormData, errors }) {
+export function StepOne({
+  buttonNext,
+  formData,
+  setFormData,
+  handleChange,
+  errors,
+}) {
   return (
     <div className="flex flex-col py-[32px] px-[48px] justify-between items-center w-[480px] rounded h-[655px] bg-white">
       <div>
@@ -24,9 +30,7 @@ export function StepOne({ buttonNext, formData, setFormData, errors }) {
               } `}
               type="text"
               value={formData.firstname}
-              onChange={(e) =>
-                setFormData({ ...formData, firstname: e.target.value })
-              }
+              onChange={handleChange}
             />
             {errors.firstname && (
               <p className="text-red-500 text-[14px]">{errors.firstname}</p>
@@ -49,9 +53,7 @@ export function StepOne({ buttonNext, formData, setFormData, errors }) {
               } `}
               type="text"
               value={formData.lastname}
-              onChange={(e) =>
-                setFormData({ ...formData, lastname: e.target.value })
-              }
+              onChange={handleChange}
             />
             {errors.lastname && (
               <p className="text-red-500 text-[14px]">{errors.lastname}</p>
@@ -74,9 +76,7 @@ export function StepOne({ buttonNext, formData, setFormData, errors }) {
               } `}
               type="text"
               value={formData.username}
-              onChange={(e) =>
-                setFormData({ ...formData, username: e.target.value })
-              }
+              onChange={handleChange}
             />
             {errors.username && (
               <p className="text-red-500 text-[14px]">{errors.username}</p>

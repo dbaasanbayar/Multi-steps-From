@@ -9,6 +9,7 @@ export function StepThree({
   setFormData,
   formData,
   errors,
+  handleChange,
 }) {
   const [preview, setPreview] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -59,7 +60,7 @@ export function StepThree({
               )}
             </label>
             <input
-              name="dateofbirth"
+              name="dateOfBirth"
               id="dateofbirth"
               className={`border px-1 rounded w-[full] h-[40px] focus:outline-none ${
                 errors.dateOfBirth
@@ -68,9 +69,7 @@ export function StepThree({
               } `}
               type="date"
               value={formData.dateOfBirth}
-              onChange={(e) =>
-                setFormData({ ...formData, dateOfBirth: e.target.value })
-              }
+              onChange={handleChange}
             />
             {errors.dateOfBirth && (
               <p className="text-red-500 text-[14px]">{errors.dateOfBirth}</p>
