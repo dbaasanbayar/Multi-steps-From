@@ -62,7 +62,7 @@ export function StepThree({
             <input
               name="dateOfBirth"
               id="dateofbirth"
-              className={`border px-1 rounded w-[full] h-[40px] focus:outline-none ${
+              className={`border px-1 cursor-pointer rounded w-[full] h-[40px] focus:outline-none ${
                 errors.dateOfBirth
                   ? "border-red-400 focus:ring-red-400"
                   : "focus:border-green-500"

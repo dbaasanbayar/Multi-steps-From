@@ -24,16 +24,3 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
-
-.step {
-  transition: opacity 0.3 ease;
-}
-
-.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.visible {
-  opacity: 1;
-}
